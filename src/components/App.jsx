@@ -10,7 +10,25 @@ export const App = () => {
     
   return (
     <>
-      <SearchContact />
+      <header className="searchbar">
+  <form className="form">
+    <button type="submit" className="button" onClick={onSubmit}>
+      <span className="button-label">Search</span>
+    </button>
+
+    <input
+      className="input"
+      type="text"
+      autoFocus="on"      
+      autoComplete="off"
+      placeholder="Search images and photos"
+      onChange={onChange}      
+    />
+  </form>
+      </header>
+      
+
+
       <button onClick={() => setShowModal(true)}></button>
       
 
