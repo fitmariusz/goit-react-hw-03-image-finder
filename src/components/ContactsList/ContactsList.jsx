@@ -1,4 +1,4 @@
-import { searchContact } from "../Search/Search";
+import { searchContact } from "../Search/SearchBar";
 import css from "./ContactsList.module.css"
 
 
