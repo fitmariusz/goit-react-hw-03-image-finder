@@ -1,6 +1,8 @@
-import { ImageGalleryItem } from './ImageGalleryItem';
+import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ images, openModal }) => {
+export const ImageGallery = ({images}) => {
+  // const {images} = prop
+
   return (
     <ul className="imageGallery">
       {images.map(image => (
@@ -8,7 +10,7 @@ export const ImageGallery = ({ images, openModal }) => {
           key={image.id}
           imageUrl={image.webformatURL}
           largeImageUrl={image.largeImageURL}
-          onClick={openModal}
+          // onClick={openModal}
         />
       ))}
     </ul>

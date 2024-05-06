@@ -1,43 +1,31 @@
 // import './App.css'
 import { useQuery } from 'react-query'
 import { getPhoto } from '../utils/api/getPhoto'
+import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+// import { useEffect } from 'react';
 
-export const FetchPhoto = ({ resultSearch }) => {
-
-  console.log(resultSearch)
+export const FetchPhoto = ({ resultSearch, updatePage }) => {
+  
+ 
+  // console.log(resultSearch)
   
   // https://tanstack.com/query/v3/docs/framework/react/overview
   const { data: photos, isLoading, error } = useQuery({ queryKey: ['search-photo'], queryFn: getPhoto(resultSearch) });
-// 
-  // console.log(resultSearch);
-  // if (error)
-  // {
-  //   console.log(error.message);
+   
+  // const startTest = () => {
+    // UpdateMaxImage(photos.totalHits)
   // }
-  // if (isLoading)
-  // {
-  //   console.log('Loading...');
-  // }
-  // if (!error && !isLoading)
-  // {
-  //   console.log(photos.hits);
-  //   }
   
+  // startTest();   
+
+  // console.log(photos.totalHits);
   return <>
+    
     <p></p>
         {error && <p>Something went wrong: {error.message}</p>}
         {isLoading && <p>Loading...</p>}
-        <ul>
-          {!isLoading && !error && photos.hits.map(({ webformatURL, id }) => <li key={id}><img src={webformatURL} alt=""/></li>)}
-        </ul>
-    </>
+    {!isLoading && !error && <ImageGallery images={photos.hits} />}
+    {!isLoading && !error && photos.totalHits > resultSearch.perPage ? <button onClick={updatePage}>More image</button> : <p></p>}
+    
+  </>
 }
-
-// return <>
-//     <p></p>
-//         {error && <p>Something went wrong: {error.message}</p>}
-//         {isLoading && <p>Loading...</p>}
-//         <ul>
-//           {!isLoading && !error && photos.hits.map(({ webformatURL, id }) => <li key={id}><img src={webformatURL} alt=""/></li>)}
-//         </ul>
-//     </>
