@@ -1,10 +1,11 @@
 // import './App.css'
+
 import { useQuery } from 'react-query'
 import { getPhoto } from '../utils/api/getPhoto'
-import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { ImageGallery } from 'components/ImageGallery/ImageGallery'
 // import { useEffect } from 'react';
 
-export const FetchPhoto = ({ resultSearch, updatePage }) => {
+export const FetchPhoto = ({ resultSearch, updatePage, changeRefresch }) => {
   
  
   // console.log(resultSearch)
@@ -15,7 +16,7 @@ export const FetchPhoto = ({ resultSearch, updatePage }) => {
   // const startTest = () => {
     // UpdateMaxImage(photos.totalHits)
   // }
-  
+  // changeRefresch();
   // startTest();   
 
   // console.log(photos.totalHits);
@@ -24,7 +25,7 @@ export const FetchPhoto = ({ resultSearch, updatePage }) => {
     <p></p>
         {error && <p>Something went wrong: {error.message}</p>}
         {isLoading && <p>Loading...</p>}
-    {!isLoading && !error && <ImageGallery images={photos.hits} />}
+    {!isLoading && !error &&<ImageGallery images={photos.hits} />}
     {!isLoading && !error && photos.totalHits > resultSearch.perPage ? <button onClick={updatePage}>More image</button> : <p></p>}
     
   </>

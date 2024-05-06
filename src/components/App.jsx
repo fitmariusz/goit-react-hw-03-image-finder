@@ -4,7 +4,7 @@ import './App.css'
 // import { SearchBar } from './Search/SearchBar';
 // import { FetchPhoto } from './FetchPhoto/FetchPhoto'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { AppStart } from './AppStart';
+import { AppStart } from './AppStart'
 // import { ImageGallery } from './ImageGallery/ImageGallery';
 // import { Modal } from 'react-bootstrap';
 
@@ -34,7 +34,7 @@ export const App = () => {
 
   return (
     <>
-      
+
       <QueryClientProvider client={queryClient}>
       <AppStart/>
      </QueryClientProvider>

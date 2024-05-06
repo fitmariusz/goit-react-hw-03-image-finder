@@ -8,12 +8,14 @@ export const SearchBar = (perm) => {
   const onSubmit = (event) => {
     event.preventDefault();
     UpdateSerchText(query);
-
+    console.log("W onSubmit SearchBar " + query);
     
   };
 
   const onChange = (event) => {
     setQuery(event.target.value);
+    
+    console.log("W onChange SearchBar "+query);
   };
 
   return <>
