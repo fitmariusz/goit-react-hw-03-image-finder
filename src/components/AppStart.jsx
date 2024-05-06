@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
 import { SearchBar } from './Search/SearchBar';
-import { FetchPhoto } from './FetchPhoto/FetchPhoto'
+import { Axios } from "axios";
+// import { FetchPhoto } from './FetchPhoto/FetchPhoto'
+
+
+// import { useQuery } from 'react-query'
+// import { getPhoto } from '../utils/api/getPhoto'
+// import { ImageGallery } from 'components/ImageGallery/ImageGallery'
 
 const INITCONTACTS = {
-  // searchPhotos: [],
+  searchPhotos: [],
   urlSearch:"https://pixabay.com/api/?",
   keyApiPixabay :"42443231-e69777d4d2b71e5eeb75f7bd2",
   searchText: "dog",
   page: 1,
-    perPage: 12,
-    maxPhoto: 0,
+  perPage: 12,
+  maxPhoto: 0,
   loader: false,
 }
 
 export const AppStart = () => { 
   const [resultSearch, setResultSerch] = useState(INITCONTACTS);
-  const [refreshSerch, setRefreshSerch] = useState(false);
+  const {searchText, page}=resultSearch
+  // const [refreshSerch, setRefreshSerch] = useState(false);
 // useEffect(() => {
 //     console.log("useEffect")
     
@@ -34,18 +41,37 @@ export const AppStart = () => {
     })
     console.log("Wynik wpisania szukanej wartości "+resultSearch.searchText)
   }
-  // useEffect(() => {
-  //   console.log('zmiana refresh an false')
-  //   setRefreshSerch(false);
-  // }, [refreshSerch]);
-  const changeRefresch = () => { 
-    setRefreshSerch(true);
-  };
+
 
   useEffect(() => {
+    const fetchPhotos = async () => {
+      setResultSerch({
+        ...resultSearch,
+        loader:true,
+      });
+      try {
+        const response = await axios.get(
+          `https://pixabay.com/api/?q=${resultSearch.searchText}&page=${resultSearch.page}&key=${resultSearch.keyApiPixabay}&image_type=photo&orientation=horizontal&per_page=12`
+        );
+        setResultSerch({
+          ...resultSearch,
+          searchPhotos: [ ...response.data.hits],
+          totalHits: response.data.totalHits,
+        loader:true,
+      });
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      setResultSerch({
+        ...resultSearch,
+        loader:false,
+      });
+    };
+    fetchPhotos()
     console.log('zmiana tekstu wyszukiwania')
-    setRefreshSerch(false);
-  }, [resultSearch.searchText, resultSearch.page]);
+
+  }, [searchText, page]);
   
   const updatePage = () => {
      setResultSerch({
@@ -54,10 +80,14 @@ export const AppStart = () => {
   }
 
     return <>
-        <SearchBar UpdateSerchText={UpdateSerchText} />
-      {refreshSerch && resultSearch.searchText!=='' ? <FetchPhoto resultSearch={resultSearch} updatePage={updatePage} changeRefresch={changeRefresch} /> : <p></p>}
+      <SearchBar UpdateSerchText={UpdateSerchText} />
+      {resultSearch.loader ? <p>loader...</p>:<p>gallery...</p>}
+      {/* {refreshSerch && resultSearch.searchText!=='' ? <FetchPhoto resultSearch={resultSearch} updatePage={updatePage} changeRefresch={changeRefresch} /> : <p></p>} */}
         {/* {resultSearch.maxPhoto >= resultSearch.perPage ? <button onClick={updatePage}>More image</button> : <p></p>} */}
-
+{/* {error && <p>Something went wrong: {error.message}</p>}
+        {isLoading && <p>Loading...</p>}
+    {!isLoading && !error &&<ImageGallery images={photos.hits} />}
+    {!isLoading && !error && photos.totalHits > resultSearch.perPage ? <button onClick={updatePage}>More image</button> : <p></p>} */}
     </>
 
 };
