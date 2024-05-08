@@ -7,7 +7,6 @@
 .searchbar{
     display: flex;
     margin: auto;
-        /* justify-content: center; */
         align-items: center;
         width: 100%;
         max-width: 1500px;
