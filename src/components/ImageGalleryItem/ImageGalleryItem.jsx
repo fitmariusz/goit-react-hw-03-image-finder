@@ -1,16 +1,19 @@
 import { nanoid } from 'nanoid';
+import css from './ImageGalleryItem.module.css'
 
 export const ImageGalleryItem = ({ imageUrl, largeImageUrl, onClick }) => {
   return (
-    <li className="imageGalleryItem" id={nanoid()}>
+    <li className={css.imageGalleryItem} id={nanoid()}>
       <img
         src={imageUrl}
         alt=""
         data-large={largeImageUrl}
-        className="imageGalleryItem-image"
+        className={css.imageGalleryItemImage}
         onClick={onClick}
+
         style={{ cursor: 'pointer' }}
       />
     </li>
   );
 };
+

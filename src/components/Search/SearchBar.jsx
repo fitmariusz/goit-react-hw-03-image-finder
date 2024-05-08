@@ -1,4 +1,6 @@
 import { useState } from "react";
+import css from './SearchBar.module.css'
+
 
 export const SearchBar = (perm) => { 
   const { UpdateSerchText } = perm;
@@ -8,25 +10,21 @@ export const SearchBar = (perm) => {
   const onSubmit = (event) => {
     event.preventDefault();
     UpdateSerchText(query);
-    console.log("W onSubmit SearchBar " + query);
-    
   };
 
   const onChange = (event) => {
     setQuery(event.target.value);
-    
-    console.log("W onChange SearchBar "+query);
   };
 
   return <>
-  <header className="searchbar">
-  <form className="form">
-    <button type="submit" className="button" onClick={onSubmit}>
-      <span className="button-label">Search</span>
+  <header className={css.searchbar}>
+  <form className={css.form}>
+    <button type="submit" className={css.button} onClick={onSubmit}>
+      <span className="button-label"></span>
     </button>
 
     <input
-      className="input"
+      className={css.input}
       type="text"
       autoFocus="on"      
       autoComplete="off"
@@ -34,7 +32,7 @@ export const SearchBar = (perm) => {
       onChange={onChange}      
     />
   </form>
-      </header>
+  </header>
   
   </>
 };

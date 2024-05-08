@@ -4,7 +4,7 @@ import './App.css'
 // import { SearchBar } from './Search/SearchBar';
 // import { FetchPhoto } from './FetchPhoto/FetchPhoto'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { AppStart } from './AppStart'
+import { AppStart } from '../components/ApiStart/AppStart'
 // import { ImageGallery } from './ImageGallery/ImageGallery';
 // import { Modal } from 'react-bootstrap';
 

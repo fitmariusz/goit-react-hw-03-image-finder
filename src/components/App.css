@@ -17,3 +17,8 @@ body{
     border-radius: 100px;
 box-shadow: rgba(160, 158, 161, 0.25) 0px 50px 100px -20px, rgba(255, 255, 255, 0.3) 0px 0px 60px -30px, rgba(255, 255, 255, 0.35) 0px -2px 6px 0px inset;
 }
+html {
+    box-sizing: border-box;
+    width: 100vw;
+    overflow-x: hidden;
+}

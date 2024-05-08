@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
-import { SearchBar } from './Search/SearchBar';
+import { SearchBar } from '../Search/SearchBar';
 import axios from "axios";
+import { Modal } from '../Modal/Modal';
+import { ImageGallery } from '../ImageGallery/ImageGallery'
+import { Loader } from "components/Loader/Loader";
 
-// import { SearchContact } from './Search/Search';
-import { createPortal } from 'react-dom';
-import { ModalContent } from './Modal/Modal';
-
-// import { FetchPhoto } from './FetchPhoto/FetchPhoto'
-
-
-// import { useQuery } from 'react-query'
-// import { getPhoto } from '../utils/api/getPhoto'
-import { ImageGallery } from './ImageGallery/ImageGallery'
-let test = [];
 const INITCONTACTS = {
-  // searchPhotos: [],
   urlSearch:"https://pixabay.com/api/?",
   keyApiPixabay :"42443231-e69777d4d2b71e5eeb75f7bd2",
   searchText: "",
@@ -27,11 +18,11 @@ const INITCONTACTS = {
 export const AppStart = () => { 
   const [resultSearch, setResultSerch] = useState(INITCONTACTS);
   const [searchPhotos, setSearchPhotos] = useState([])
-  const [searchText, setSearchText] = useState('')
-  const [page, setPage] = useState(1)
+  const [searchText, setSearchText] = useState('');
+  const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(0);
-  const [showModal, setShowModal] = useState(false)
-
+  const [showModal, setShowModal] = useState(false);
+  const [modalImg, setModalImg] = useState('');
   // const {searchText, page}=resultSearch
   // const [refreshSerch, setRefreshSerch] = useState(false);
 // useEffect(() => {
@@ -44,12 +35,6 @@ export const AppStart = () => {
   
   
   const UpdateSerchText = (newText) => {
-    // setResultSerch({
-    //     ...resultSearch,
-    //     searchText: newText.split(" ").join("+"),
-    //     page: 1,
-    //     maxPhoto: 0,
-    // })
     setPage(1);
     setSearchText(newText.split(" ").join("+"));
     setSearchPhotos([]);
@@ -98,21 +83,21 @@ export const AppStart = () => {
     ])
   }
 
+  const onImageClick = e => {
+    setModalImg(e.target.getAttribute('data-large'));
+    setShowModal(true);
+  };
+
+  const onImageCluse = () => { 
+    setShowModal(false);
+  };
+
     return <>
       <SearchBar UpdateSerchText={UpdateSerchText} />
-      {resultSearch.loader ? <p>loader...</p> : <ImageGallery images={searchPhotos} >Test</ImageGallery>}
+      {resultSearch.loader ? <Loader/>: <ImageGallery images={searchPhotos} onClick={onImageClick}></ImageGallery>}
       {!resultSearch.loader && (maxPage > page) ? <button onClick={updatePage}>More image</button> : <p></p>}
-      {showModal && createPortal(
-        <ModalContent imgSrc="https://pixabay.com/get/g54fce8f57769c43ff1c07dff2a27fc724fe9bcd320b3ce143feda3eeaf5dda3c767ddaceddc7cbd84f76e16d9b4b951ec92fe89dfef493efe0e68d0b42cf5f4b_640.jpg" onClose={() => setShowModal(false)} />,
-        document.body
-      )} 
-      <button onClick={()=>setShowModal(true)}>
-        Launch vertically centered modal
-      </button>
-{/* 
-      <MyVerticallyCenteredModl
-        show={modalShow}
-        onHide={() => setModalShow(false)}></MyVerticallyCenteredModl> */}
+      {showModal && <Modal onClose={onImageCluse} imgSrc={modalImg}/>}
+
     </>
 
 };
