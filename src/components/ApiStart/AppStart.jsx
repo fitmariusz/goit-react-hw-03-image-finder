@@ -4,6 +4,7 @@ import axios from "axios";
 import { Modal } from '../Modal/Modal';
 import { ImageGallery } from '../ImageGallery/ImageGallery'
 import { Loader } from "components/Loader/Loader";
+import { BtmMoreImage } from "components/BtmMoreImage/BmMoreImage";
 
 // const INITCONTACTS = {
 //   urlSearch:"https://pixabay.com/api/?",
@@ -87,7 +88,7 @@ export const AppStart = () => {
     return <>
       <SearchBar UpdateSerchText={UpdateSerchText} />
       {loader ? <Loader/>: <ImageGallery images={searchPhotos} onClick={onImageClick}></ImageGallery>}
-      {!loader && (maxPage > page) ? <button onClick={updatePage}>More image</button> : <p></p>}
+      {!loader && (maxPage > page) && <BtmMoreImage onClick={updatePage}>More image</BtmMoreImage>}
       {showModal && <Modal onClose={onImageCluse} imgSrc={modalImg}/>}
 
     </>

@@ -1,14 +1,14 @@
-import { Audio } from 'react-loader-spinner';
+import { FallingLines } from 'react-loader-spinner';
 import  css  from './Loader.module.css';
 
 export const Loader = () => (
   <div className={css.loader}>
-    <Audio
+    <FallingLines
       height="80"
       width="80"
       radius="9"
       color="green"
-      ariaLabel="three-dots-loading"
+      ariaLabel="loading"
       wrapperStyle
       wrapperClass
     />
