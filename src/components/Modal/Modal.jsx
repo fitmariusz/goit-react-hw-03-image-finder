@@ -1,13 +1,28 @@
 import css from './Modal.module.css'
 
-export const ModalContent = ({ imgSrc, onClose }) => {
-  return (
-    // <div className="overlay">
-    <div className={css.modal}>
-      <p>test</p>
-      <img href="https://pixabay.com/photos/flowers-yellow-nature-blossom-3028429/" alt="Test" onClick={onClose} />
-      <button onClick={onClose}>Colse</button>
+
+import { useEffect } from 'react';
+
+export const Modal = ({ imgSrc, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.keyCode === 27) {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+       return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+ 
+  }, [onClose]);
+
+
+  return <>
+    <div className={css.overlay} onClick={onClose}>
+      <div className={css.modal}>
+        <img src={imgSrc} alt="" />
       </div>
-    // </div> 
-  );
-}
+    </div>
+  </>
+};

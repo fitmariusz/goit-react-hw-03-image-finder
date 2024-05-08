@@ -1,31 +1,48 @@
+// import { useEffect, useState } from 'react';
 import './App.css'
-import { useState } from "react";
+// import { useEffect, useState } from "react";
+// import { SearchBar } from './Search/SearchBar';
+// import { FetchPhoto } from './FetchPhoto/FetchPhoto'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { AppStart } from '../components/ApiStart/AppStart'
+// import { ImageGallery } from './ImageGallery/ImageGallery';
+// import { Modal } from 'react-bootstrap';
+
+// import { useQuery } from 'react-query'
+// import { getPhoto } from '../utils/api/getPhoto'
+
+
+// const INITCONTACTS = {
+//   // searchPhotos: [],
+//   urlSearch:"https://pixabay.com/api/?",
+//   keyApiPixabay :"42443231-e69777d4d2b71e5eeb75f7bd2",
+//   searchText: "dog",
+//   page: 1,
+//   perPage: 12,
+//   loader: false,
+// }
+
+
+const queryClient = new QueryClient();
+
 // import { nanoid } from 'nanoid';
-import { SearchContact } from './Search/Search';
-import { createPortal } from 'react-dom';
-import { ModalContent } from './Modal/Modal';
+// import { SearchContact } from './Search/Search';
+// import { createPortal } from 'react-dom';
+// import { ModalContent } from './Modal/Modal';
 
 export const App = () => {
-  const [showModal, setShowModal] = useState(false);
-    
+
   return (
     <>
-      <header className="searchbar">
-  <form className="form">
-    <button type="submit" className="button" onClick={onSubmit}>
-      <span className="button-label">Search</span>
-    </button>
 
-    <input
-      className="input"
-      type="text"
-      autoFocus="on"      
-      autoComplete="off"
-      placeholder="Search images and photos"
-      onChange={onChange}      
-    />
-  </form>
-      </header>
+      <QueryClientProvider client={queryClient}>
+      <AppStart/>
+     </QueryClientProvider>
+
+      
+
+
+      {/*
       
 
 
@@ -36,7 +53,7 @@ export const App = () => {
       {showModal && createPortal(
         <ModalContent  onClose={() => setShowModal(false)} />,
         document.body
-      )}
+      )} */}
       {/* <div className='divForm'>  */}
       {/* <Section title="Phonebook" children={<Form dataPhonebook={dataPhonebook} onSubmit={onSubmit} onChange={onChange}></Form>}></Section> */}
         {/* <Section title="Contacts" children={<ContactList dataPhonebook={dataPhonebook} onDelete={onDelete} onChange={onChange}></ContactList>}></Section> */}
@@ -55,4 +72,3 @@ export const App = () => {
     </>
   );
 };
-
