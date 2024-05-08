@@ -26,41 +26,25 @@ export const AppStart = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalImg, setModalImg] = useState('');
   const [loader, setLoader] = useState(false) 
-  // const {searchText, page}=resultSearch
-  // const [refreshSerch, setRefreshSerch] = useState(false);
-// useEffect(() => {
-//     console.log("useEffect")
-    
-    
 
-
-//   },[resultSearch.searchText, resultSearch.page])
-  
-  
   const UpdateSerchText = (newText) => {
     setPage(1);
     setSearchText(newText.split(" ").join("+"));
     setSearchPhotos([]);
   }
 
-
   useEffect(() => {
     const fetchPhotos = async () => {
       if (searchText === '') {
         return(1);
       }
-
-
       setLoader(true);
-
       try {
         const response = await axios.get(
           `https://pixabay.com/api/?q=${searchText}&page=${page}&key=${keyApiPixabay}&image_type=photo&orientation=horizontal&per_page=12`
         );
         setSearchPhotos((preValue) => [...preValue, ...response.data.hits]);
         setMaxPage(response.data.totalHits / 12);
-        // setLoader(true)
-
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -90,7 +74,6 @@ export const AppStart = () => {
       {loader ? <Loader/>: <ImageGallery images={searchPhotos} onClick={onImageClick}></ImageGallery>}
       {!loader && (maxPage > page) && <BtmMoreImage onClick={updatePage}>More image</BtmMoreImage>}
       {showModal && <Modal onClose={onImageCluse} imgSrc={modalImg}/>}
-
     </>
 
 };
